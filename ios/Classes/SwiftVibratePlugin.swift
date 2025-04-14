@@ -2,7 +2,8 @@ import Flutter
 import UIKit
 import AudioToolbox
 
-private let isDevice = TARGET_OS_SIMULATOR == 0
+private let isDevice = true
+// private let isDevice = TARGET_OS_SIMULATOR == 0
     
 public class SwiftVibratePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -14,12 +15,11 @@ public class SwiftVibratePlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
       switch (call.method) {
           case "canVibrate":
-              result(true)
-              // if isDevice {
-              //   result(true)
-              // } else {
-              //   result(false)
-              // }
+              if isDevice {
+                result(true)
+              } else {
+                result(false)
+              }
           case "vibrate":
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             // Feedback
